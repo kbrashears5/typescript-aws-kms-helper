@@ -5,7 +5,7 @@
 <b>Typescript helper functions for AWS KMS service</b>
     
 [![Build Status](https://dev.azure.com/kbrashears5/github/_apis/build/status/kbrashears5.typescript-aws-kms-helper?branchName=master)](https://dev.azure.com/kbrashears5/github/_build/latest?definitionId=15&branchName=master)
-[![Tekms](https://img.shields.io/azure-devops/tekms/kbrashears5/github/15)](https://img.shields.io/azure-devops/tekms/kbrashears5/github/15)
+[![Tekms](https://img.shields.io/azure-devops/tests/kbrashears5/github/15)](https://img.shields.io/azure-devops/tests/kbrashears5/github/15)
 [![Code Coverage](https://img.shields.io/azure-devops/coverage/kbrashears5/github/15)](https://img.shields.io/azure-devops/coverage/kbrashears5/github/15)
 
 [![NPM Version](https://img.shields.io/npm/v/typescript-aws-kms-helper)](https://img.shields.io/npm/v/typescript-aws-kms-helper)
