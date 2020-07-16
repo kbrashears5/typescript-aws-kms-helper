@@ -24,7 +24,7 @@
     "dependencies": {
         "typescript-helper-functions": "1.0.11",
         "typescript-ilogger": "1.0.4",
-        "uuid": "8.1.0"
+        "uuid": "8.2.0"
     },
     "devDependencies": {
         "@types/aws-lambda": "8.10.59",
