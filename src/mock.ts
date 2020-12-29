@@ -1,7 +1,5 @@
 import { BaseMock } from 'typescript-helper-functions';
-
-// tslint:disable-next-line: no-var-requires
-const AWS = require('aws-sdk');
+import * as KMS from '@aws-sdk/client-kms';
 
 /**
  * KMS Mock class
@@ -9,14 +7,14 @@ const AWS = require('aws-sdk');
 export class KMSMock extends BaseMock {
 
     /**
-     * Mocks an AWS.KMS.DecryptResponse response
+     * Mocks an KMS.DecryptResponse response
      */
-    public DecryptResponse: AWS.KMS.DecryptResponse = {};
+    public DecryptResponse: KMS.DecryptResponse = {};
 
     /**
-     * Mocks an AWS.KMS.EncryptResponse response
+     * Mocks an KMS.EncryptResponse response
      */
-    public EncryptResponse: AWS.KMS.EncryptResponse = {};
+    public EncryptResponse: KMS.EncryptResponse = {};
 
     /**
      * Create the KMS mock
@@ -31,7 +29,7 @@ export class KMSMock extends BaseMock {
                 promise: jest.fn().mockImplementation(() => {
                     return returnError ?
                         Promise.reject(rejectResponse) :
-                        Promise.resolve<AWS.KMS.DecryptResponse>(this.DecryptResponse);
+                        Promise.resolve<KMS.DecryptResponse>(this.DecryptResponse);
                 }),
             },
             // encrypt response
@@ -39,13 +37,15 @@ export class KMSMock extends BaseMock {
                 promise: jest.fn().mockImplementation(() => {
                     return returnError ?
                         Promise.reject(rejectResponse) :
-                        Promise.resolve<AWS.KMS.EncryptResponse>(this.EncryptResponse);
+                        Promise.resolve<KMS.EncryptResponse>(this.EncryptResponse);
                 }),
             },
         };
 
+        const options = {} as KMS.KMSClientConfig;
+
         // create the functions
-        let functions = new AWS.KMS();
+        let functions = new KMS.KMS(options);
         functions = {
             decrypt: () => awsResponses.decrypt,
             encrypt: () => awsResponses.encrypt,
