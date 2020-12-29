@@ -5,11 +5,9 @@ import { TestingValues } from './test-values';
 
 const logger = new Logger(LogLevel.Off);
 const mockerResolves = new KMSMock(false);
-const kmsHelperMockResolves = new KMSHelper(logger,
-    mockerResolves.Mock);
+const kmsHelperMockResolves = new KMSHelper(logger, mockerResolves.Mock);
 const mockerRejects = new KMSMock(true);
-const kmsHelperMockRejects = new KMSHelper(logger,
-    mockerRejects.Mock);
+const kmsHelperMockRejects = new KMSHelper(logger, mockerRejects.Mock);
 const TestValues = new TestingValues();
 
 /**
