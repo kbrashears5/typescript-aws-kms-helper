@@ -12,13 +12,13 @@ export class KMSHelper extends BaseClass implements IKMSHelper {
     /**
      * AWS Repository for KMS
      */
-    public Repository: KMS.KMS;
+    private Repository: KMS.KMS;
 
     /**
      * Initializes new instance of KMSHelper
      * @param logger {ILogger} Injected logger
      * @param repository {KMS.KMS} Injected Repository. A new repository will be created if not supplied
-     * @param options {KMS.ClientConfiguration} Injected configuration if a Repository is supplied
+     * @param options {KMS.KMSClientConfig} Injected configuration if a Repository is supplied
      */
     constructor(logger: ILogger,
         repository?: KMS.KMS,
