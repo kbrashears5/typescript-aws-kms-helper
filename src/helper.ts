@@ -1,4 +1,4 @@
-import * as AWS from 'aws-sdk';
+import * as KMS from '@aws-sdk/client-kms';
 import { v4 } from 'uuid';
 import { ILogger } from 'typescript-ilogger';
 import { BaseClass } from 'typescript-helper-functions';
@@ -12,27 +12,28 @@ export class KMSHelper extends BaseClass implements IKMSHelper {
     /**
      * AWS Repository for KMS
      */
-    public Repository: AWS.KMS;
+    private Repository: KMS.KMS;
 
     /**
      * Initializes new instance of KMSHelper
      * @param logger {ILogger} Injected logger
-     * @param repository {AWS.KMS} Injected Repository. A new repository will be created if not supplied
-     * @param options {AWS.KMS.ClientConfiguration} Injected configuration if a Repository is supplied
+     * @param repository {KMS.KMS} Injected Repository. A new repository will be created if not supplied
+     * @param options {KMS.KMSClientConfig} Injected configuration if a Repository is supplied
      */
     constructor(logger: ILogger,
-        repository?: AWS.KMS,
-        options?: AWS.KMS.ClientConfiguration) {
+        repository?: KMS.KMS,
+        options?: KMS.KMSClientConfig) {
 
         super(logger);
-        this.Repository = repository || new AWS.KMS(options);
+        options = this.ObjectOperations.IsNullOrEmpty(options) ? { region: 'us-east-1' } as KMS.KMSClientConfig : options!;
+        this.Repository = repository || new KMS.KMS(options);
     }
 
     /**
      * Decrypt KMS
      * @param encryptedValue {string} Value to decrypt
      */
-    public async DecryptAsync(encryptedValue: string): Promise<AWS.KMS.DecryptResponse> {
+    public async DecryptAsync(encryptedValue: string): Promise<KMS.DecryptResponse> {
 
         const action = `${KMSHelper.name}.${this.DecryptAsync.name}`;
         this.LogHelper.LogInputs(action, { cipherTextBlob: encryptedValue });
@@ -40,14 +41,16 @@ export class KMSHelper extends BaseClass implements IKMSHelper {
         // guard clauses
         if (this.ObjectOperations.IsNullOrWhitespace(encryptedValue)) { throw new Error(`[${action}]-Must supply encryptedValue`); }
 
+        const array = this.ObjectOperations.ConvertStringToArrayBuffer(encryptedValue);
+
         // create params object
-        const params: AWS.KMS.DecryptRequest = {
-            CiphertextBlob: encryptedValue,
+        const params: KMS.DecryptRequest = {
+            CiphertextBlob: array,
         };
         this.LogHelper.LogRequest(action, params);
 
         // make AWS call
-        const response = await this.Repository.decrypt(params).promise();
+        const response = await this.Repository.decrypt(params);
         this.LogHelper.LogResponse(action, response);
 
         return response;
@@ -57,7 +60,7 @@ export class KMSHelper extends BaseClass implements IKMSHelper {
      * Encrypt KMS
      * @param unencryptedValue {string} Value to encrypt
      */
-    public async EncryptAsync(unencryptedValue: string): Promise<AWS.KMS.EncryptResponse> {
+    public async EncryptAsync(unencryptedValue: string): Promise<KMS.EncryptResponse> {
 
         const action = `${KMSHelper.name}.${this.EncryptAsync.name}`;
         this.LogHelper.LogInputs(action, { cipherTextBlob: unencryptedValue });
@@ -65,15 +68,17 @@ export class KMSHelper extends BaseClass implements IKMSHelper {
         // guard clauses
         if (this.ObjectOperations.IsNullOrWhitespace(unencryptedValue)) { throw new Error(`[${action}]-Must supply unencryptedValue`); }
 
+        const array = this.ObjectOperations.ConvertStringToArrayBuffer(unencryptedValue);
+
         // create params object
-        const params: AWS.KMS.EncryptRequest = {
+        const params: KMS.EncryptRequest = {
             KeyId: v4(),
-            Plaintext: unencryptedValue,
+            Plaintext: array,
         };
         this.LogHelper.LogRequest(action, params);
 
         // make AWS call
-        const response = await this.Repository.encrypt(params).promise();
+        const response = await this.Repository.encrypt(params);
         this.LogHelper.LogResponse(action, response);
 
         return response;

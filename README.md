@@ -44,3 +44,6 @@ const helper = new KMSHelper(logger,
 
 const response = await helper.DecryptAsync('encryptedValue');
 ```
+
+## Notes
+If no options are supplied, will default to `us-east-1` as the region
