@@ -8,79 +8,91 @@ import { IKMSHelper } from './interface';
  * KMS Helper
  */
 export class KMSHelper extends BaseClass implements IKMSHelper {
+  /**
+   * AWS Repository for KMS
+   */
+  private Repository: KMS.KMS;
 
-    /**
-     * AWS Repository for KMS
-     */
-    private Repository: KMS.KMS;
+  /**
+   * Initializes new instance of KMSHelper
+   * @param logger {ILogger} Injected logger
+   * @param repository {KMS.KMS} Injected Repository. A new repository will be created if not supplied
+   * @param options {KMS.KMSClientConfig} Injected configuration if a Repository is supplied
+   */
+  constructor(
+    logger: ILogger,
+    repository?: KMS.KMS,
+    options?: KMS.KMSClientConfig,
+  ) {
+    super(logger);
+    options = this.ObjectOperations.IsNullOrEmpty(options)
+      ? ({ region: 'us-east-1' } as KMS.KMSClientConfig)
+      : options!;
+    this.Repository = repository || new KMS.KMS(options);
+  }
 
-    /**
-     * Initializes new instance of KMSHelper
-     * @param logger {ILogger} Injected logger
-     * @param repository {KMS.KMS} Injected Repository. A new repository will be created if not supplied
-     * @param options {KMS.KMSClientConfig} Injected configuration if a Repository is supplied
-     */
-    constructor(logger: ILogger,
-        repository?: KMS.KMS,
-        options?: KMS.KMSClientConfig) {
+  /**
+   * Decrypt KMS
+   * @param encryptedValue {string} Value to decrypt
+   */
+  public async DecryptAsync(
+    encryptedValue: string,
+  ): Promise<KMS.DecryptResponse> {
+    const action = `${KMSHelper.name}.${this.DecryptAsync.name}`;
+    this.LogHelper.LogInputs(action, { cipherTextBlob: encryptedValue });
 
-        super(logger);
-        options = this.ObjectOperations.IsNullOrEmpty(options) ? { region: 'us-east-1' } as KMS.KMSClientConfig : options!;
-        this.Repository = repository || new KMS.KMS(options);
+    // guard clauses
+    if (this.ObjectOperations.IsNullOrWhitespace(encryptedValue)) {
+      throw new Error(`[${action}]-Must supply encryptedValue`);
     }
 
-    /**
-     * Decrypt KMS
-     * @param encryptedValue {string} Value to decrypt
-     */
-    public async DecryptAsync(encryptedValue: string): Promise<KMS.DecryptResponse> {
+    const array = this.ObjectOperations.ConvertStringToArrayBuffer(
+      encryptedValue,
+    );
 
-        const action = `${KMSHelper.name}.${this.DecryptAsync.name}`;
-        this.LogHelper.LogInputs(action, { cipherTextBlob: encryptedValue });
+    // create params object
+    const params: KMS.DecryptRequest = {
+      CiphertextBlob: array,
+    };
+    this.LogHelper.LogRequest(action, params);
 
-        // guard clauses
-        if (this.ObjectOperations.IsNullOrWhitespace(encryptedValue)) { throw new Error(`[${action}]-Must supply encryptedValue`); }
+    // make AWS call
+    const response = await this.Repository.decrypt(params);
+    this.LogHelper.LogResponse(action, response);
 
-        const array = this.ObjectOperations.ConvertStringToArrayBuffer(encryptedValue);
+    return response;
+  }
 
-        // create params object
-        const params: KMS.DecryptRequest = {
-            CiphertextBlob: array,
-        };
-        this.LogHelper.LogRequest(action, params);
+  /**
+   * Encrypt KMS
+   * @param unencryptedValue {string} Value to encrypt
+   */
+  public async EncryptAsync(
+    unencryptedValue: string,
+  ): Promise<KMS.EncryptResponse> {
+    const action = `${KMSHelper.name}.${this.EncryptAsync.name}`;
+    this.LogHelper.LogInputs(action, { cipherTextBlob: unencryptedValue });
 
-        // make AWS call
-        const response = await this.Repository.decrypt(params);
-        this.LogHelper.LogResponse(action, response);
-
-        return response;
+    // guard clauses
+    if (this.ObjectOperations.IsNullOrWhitespace(unencryptedValue)) {
+      throw new Error(`[${action}]-Must supply unencryptedValue`);
     }
 
-    /**
-     * Encrypt KMS
-     * @param unencryptedValue {string} Value to encrypt
-     */
-    public async EncryptAsync(unencryptedValue: string): Promise<KMS.EncryptResponse> {
+    const array = this.ObjectOperations.ConvertStringToArrayBuffer(
+      unencryptedValue,
+    );
 
-        const action = `${KMSHelper.name}.${this.EncryptAsync.name}`;
-        this.LogHelper.LogInputs(action, { cipherTextBlob: unencryptedValue });
+    // create params object
+    const params: KMS.EncryptRequest = {
+      KeyId: v4(),
+      Plaintext: array,
+    };
+    this.LogHelper.LogRequest(action, params);
 
-        // guard clauses
-        if (this.ObjectOperations.IsNullOrWhitespace(unencryptedValue)) { throw new Error(`[${action}]-Must supply unencryptedValue`); }
+    // make AWS call
+    const response = await this.Repository.encrypt(params);
+    this.LogHelper.LogResponse(action, response);
 
-        const array = this.ObjectOperations.ConvertStringToArrayBuffer(unencryptedValue);
-
-        // create params object
-        const params: KMS.EncryptRequest = {
-            KeyId: v4(),
-            Plaintext: array,
-        };
-        this.LogHelper.LogRequest(action, params);
-
-        // make AWS call
-        const response = await this.Repository.encrypt(params);
-        this.LogHelper.LogResponse(action, response);
-
-        return response;
-    }
+    return response;
+  }
 }
