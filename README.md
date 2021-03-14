@@ -34,15 +34,17 @@ const response = await helper.DecryptAsync('encryptedValue');
 ### Running in separate account or not in Lambda
 
 ```typescript
+import * as KMS from '@aws-sdk/client-kms';
+
 const logger = new Logger(LogLevel.Trace);
 
-const options: AWS.KMS.ClientConfiguration = {
+const options: KMS.KMSClientConfig = {
   accessKeyId: '{access_key}',
   secretAccessKey: '{secret_key}',
   region: 'us-east-1',
 };
 
-const repository = new AWS.KMS(options);
+const repository = new KMS.KMS(options);
 
 const helper = new KMSHelper(logger, repository);
 
