@@ -46,9 +46,8 @@ export class KMSHelper extends BaseClass implements IKMSHelper {
       throw new Error(`[${action}]-Must supply encryptedValue`);
     }
 
-    const array = this.ObjectOperations.ConvertStringToArrayBuffer(
-      encryptedValue,
-    );
+    const array =
+      this.ObjectOperations.ConvertStringToArrayBuffer(encryptedValue);
 
     // create params object
     const params: KMS.DecryptRequest = {
@@ -78,9 +77,8 @@ export class KMSHelper extends BaseClass implements IKMSHelper {
       throw new Error(`[${action}]-Must supply unencryptedValue`);
     }
 
-    const array = this.ObjectOperations.ConvertStringToArrayBuffer(
-      unencryptedValue,
-    );
+    const array =
+      this.ObjectOperations.ConvertStringToArrayBuffer(unencryptedValue);
 
     // create params object
     const params: KMS.EncryptRequest = {
