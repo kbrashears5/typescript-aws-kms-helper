@@ -1,6 +1,6 @@
 {
   "name": "typescript-aws-kms-helper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Typescript AWS KMS Helper",
   "repository": {
     "type": "git",
@@ -23,8 +23,8 @@
   "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-kms": "~3.17.0",
-    "typescript-helper-functions": "~1.0.150",
-    "typescript-ilogger": "~1.0.104",
+    "typescript-helper-functions": "~1.0.151",
+    "typescript-ilogger": "~1.0.106",
     "uuid": "~8.3.2"
   },
   "devDependencies": {
@@ -69,8 +69,8 @@
     "clean": "rimraf ./lib",
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.yml \"*/**\"",
-    "postinstall": "node-git-hooks",
     "prebuild": "npm run clean && npm run format && npm run lint",
+    "prep": "npm run update && node-git-hooks",
     "test": "jest --ci --coverage",
     "update:aws-sdk": "npm i @aws-sdk/client-kms@latest",
     "update:eslint-config-prettier": "npm i eslint-config-prettier@latest --save-dev",
@@ -96,6 +96,6 @@
     "update:typescript-ilogger": "npm i typescript-ilogger@latest",
     "update:typescript": "npm i typescript@latest --save-dev",
     "update:uuid": "npm i uuid@latest",
-    "update": "run-s update:* && npm run postinstall"
+    "update": "run-s update:*"
   }
 }

@@ -4,9 +4,7 @@
     
 <b>Typescript helper functions for AWS KMS service</b>
     
-[![Build Status](https://dev.azure.com/kbrashears5/github/_apis/build/status/kbrashears5.typescript-aws-kms-helper?branchName=master)](https://dev.azure.com/kbrashears5/github/_build/latest?definitionId=15&branchName=master)
-[![Tests](https://img.shields.io/azure-devops/tests/kbrashears5/github/15)](https://img.shields.io/azure-devops/tests/kbrashears5/github/15)
-[![Code Coverage](https://img.shields.io/azure-devops/coverage/kbrashears5/github/15)](https://img.shields.io/azure-devops/coverage/kbrashears5/github/15)
+[![CI/CD](https://github.com/kbrashears5/typescript-aws-kms-helper/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/kbrashears5/typescript-kms-helper/actions/workflows/ci-cd.yml)
 
 [![NPM Version](https://img.shields.io/npm/v/typescript-aws-kms-helper)](https://img.shields.io/npm/v/typescript-aws-kms-helper)
 [![Downloads](https://img.shields.io/npm/dt/typescript-aws-kms-helper)](https://img.shields.io/npm/dt/typescript-aws-kms-helper)
@@ -54,3 +52,13 @@ const response = await helper.DecryptAsync('encryptedValue');
 ## Notes
 
 If no options are supplied, will default to `us-east-1` as the region
+
+## Development
+
+Clone the latest and run
+
+```npm
+npm run prep
+```
+
+to install packages and prep the git hooks
