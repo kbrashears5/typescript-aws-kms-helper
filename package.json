@@ -1,6 +1,6 @@
 {
   "name": "typescript-aws-kms-helper",
-  "version": "1.0.2",
+  "version": "2.0.42",
   "description": "Typescript AWS KMS Helper",
   "repository": {
     "type": "git",
