@@ -31,7 +31,7 @@ const TestValues = new TestingValues();
  * Test the DecryptAsync method
  */
 describe(`${KMSHelper.name}.${kmsHelperMock.DecryptAsync.name}`, () => {
-  test(TestValues.InvalidTest, () => {
+  test(`${TestValues.InvalidTest}`, () => {
     const actual = kmsHelperMock.DecryptAsync(TestValues.StringValue);
     return expect(actual).rejects.toThrow(TestValues.AWSError);
   });
@@ -41,7 +41,7 @@ describe(`${KMSHelper.name}.${kmsHelperMock.DecryptAsync.name}`, () => {
  * Test the EncryptAsync method
  */
 describe(`${KMSHelper.name}.${kmsHelperMock.EncryptAsync.name}`, () => {
-  test(TestValues.InvalidTest, () => {
+  test(`${TestValues.InvalidTest}`, () => {
     const actual = kmsHelperMock.EncryptAsync(TestValues.StringValue);
     return expect(actual).rejects.toThrow(TestValues.AWSError);
   });

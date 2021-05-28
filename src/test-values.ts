@@ -3,15 +3,15 @@
  */
 export class TestingValues {
   // descriptions
-  public AWSError: string = 'AWS Error';
-  public InvalidTest: string = 'returns error from AWS';
-  public MustSupply: string = 'Must supply';
-  public ThrowsOnEmpty: string = 'throws on empty';
-  public ValidTest: string = 'returns valid response from AWS';
+  public AWSError = 'AWS Error';
+  public InvalidTest = 'returns error from AWS';
+  public MustSupply = 'Must supply';
+  public ThrowsOnEmpty = 'throws on empty';
+  public ValidTest = 'returns valid response from AWS';
 
   // empty values
-  public EmptyString: string = '';
+  public EmptyString = '';
 
   // strings
-  public StringValue: string = 'value';
+  public StringValue = 'value';
 }

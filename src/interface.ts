@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as KMS from '@aws-sdk/client-kms';
 
 /**

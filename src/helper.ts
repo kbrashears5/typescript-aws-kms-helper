@@ -25,9 +25,11 @@ export class KMSHelper extends BaseClass implements IKMSHelper {
     options?: KMS.KMSClientConfig,
   ) {
     super(logger);
+    // eslint-disable-next-line no-param-reassign
     options = this.ObjectOperations.IsNullOrEmpty(options)
       ? ({ region: 'us-east-1' } as KMS.KMSClientConfig)
-      : options!;
+      : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        options!;
     this.Repository = repository || new KMS.KMS(options);
   }
 

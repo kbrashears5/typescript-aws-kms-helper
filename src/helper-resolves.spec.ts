@@ -42,7 +42,7 @@ describe(`${KMSHelper.name}.${kmsHelperMock.DecryptAsync.name}`, () => {
       `[${action}]-${TestValues.MustSupply} encryptedValue`,
     );
   });
-  test(TestValues.ValidTest, () => {
+  test(`${TestValues.ValidTest}`, () => {
     const actual = kmsHelperMock.DecryptAsync(TestValues.StringValue);
     return expect(actual).resolves.toEqual(decryptResponseResponse);
   });
@@ -61,7 +61,7 @@ describe(`${KMSHelper.name}.${kmsHelperMock.EncryptAsync.name}`, () => {
       `[${action}]-${TestValues.MustSupply} unencryptedValue`,
     );
   });
-  test(TestValues.ValidTest, () => {
+  test(`${TestValues.ValidTest}`, () => {
     const actual = kmsHelperMock.EncryptAsync(TestValues.StringValue);
     return expect(actual).resolves.toEqual(encryptResponseResponse);
   });
