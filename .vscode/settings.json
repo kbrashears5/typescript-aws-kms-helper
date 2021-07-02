@@ -4,9 +4,12 @@
     "Ciphertext",
     "IKMS",
     "cobertura",
+    "codecov",
     "codeql",
+    "eqeqeq",
     "ilogger",
     "martinbeentjes",
+    "paren",
     "postpublish",
     "prebuild",
     "unencrypted"

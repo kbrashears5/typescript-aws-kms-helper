@@ -5,7 +5,7 @@
 <b>Typescript helper functions for AWS KMS service</b>
     
 [![CI/CD](https://github.com/kbrashears5/typescript-aws-kms-helper/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/kbrashears5/typescript-kms-helper/actions/workflows/ci-cd.yml)
-
+[![codecov](https://codecov.io/gh/kbrashears5/typescript-aws-kms-helper/branch/master/graph/badge.svg?token=4PIRJTDG3K)](https://codecov.io/gh/kbrashears5/typescript-aws-kms-helper)
 [![NPM Version](https://img.shields.io/npm/v/typescript-aws-kms-helper)](https://img.shields.io/npm/v/typescript-aws-kms-helper)
 [![Downloads](https://img.shields.io/npm/dt/typescript-aws-kms-helper)](https://img.shields.io/npm/dt/typescript-aws-kms-helper)
 
