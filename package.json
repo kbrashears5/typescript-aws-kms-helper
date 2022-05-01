@@ -22,7 +22,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "dependencies": {
-    "@aws-sdk/client-kms": "~3.49.0",
+    "@aws-sdk/client-kms": "~3.81.0",
     "typescript-helper-functions": "~1.0.157",
     "typescript-ilogger": "~1.0.112",
     "uuid": "~8.3.2"
